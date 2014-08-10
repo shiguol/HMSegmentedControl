@@ -35,6 +35,8 @@
 		54F05AEF1689D34A0064FCE1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F05AEE1689D34A0064FCE1 /* Default-568h@2x.png */; };
 		54F05AF21689D34B0064FCE1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AF11689D34B0064FCE1 /* ViewController.m */; };
 		54F05B001689D38C0064FCE1 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */; };
+		FAF39F0819975B9E0053D1C7 /* triangle_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF39F0619975B9E0053D1C7 /* triangle_highlighted@2x.png */; };
+		FAF39F0919975B9E0053D1C7 /* triangle_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF39F0719975B9E0053D1C7 /* triangle_normal@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		54F05AFB1689D3650064FCE1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54F05AFE1689D38C0064FCE1 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		54F05AFF1689D38C0064FCE1 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		FAF39F0619975B9E0053D1C7 /* triangle_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle_highlighted@2x.png"; path = "HMSegmentedControlExample/Images/triangle_highlighted@2x.png"; sourceTree = SOURCE_ROOT; };
+		FAF39F0719975B9E0053D1C7 /* triangle_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle_normal@2x.png"; path = "HMSegmentedControlExample/Images/triangle_normal@2x.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 		A3A4632116B6190F00AE52BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FAF39F0619975B9E0053D1C7 /* triangle_highlighted@2x.png */,
+				FAF39F0719975B9E0053D1C7 /* triangle_normal@2x.png */,
 				54E531B016B951AB005F17A1 /* 1.png */,
 				54E531B116B951AB005F17A1 /* 1@2x.png */,
 				54E531AE16B951AB005F17A1 /* 1-selected.png */,
@@ -247,9 +253,11 @@
 				54E531C816B951AB005F17A1 /* 3.png in Resources */,
 				54E531C916B951AB005F17A1 /* 3@2x.png in Resources */,
 				54E531CA16B951AB005F17A1 /* 4-selected.png in Resources */,
+				FAF39F0919975B9E0053D1C7 /* triangle_normal@2x.png in Resources */,
 				54E531CB16B951AB005F17A1 /* 4-selected@2x.png in Resources */,
 				54E531CC16B951AB005F17A1 /* 4.png in Resources */,
 				54E531CD16B951AB005F17A1 /* 4@2x.png in Resources */,
+				FAF39F0819975B9E0053D1C7 /* triangle_highlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,9 +12,6 @@
 
 #define segmentImageTextPadding 7
 
-@interface HMScrollView : UIScrollView
-@end
-
 @interface HMSegmentedControl ()
 
 @property (nonatomic, strong) CALayer *selectionIndicatorStripLayer;
@@ -22,7 +19,6 @@
 @property (nonatomic, strong) CALayer *selectionIndicatorArrowLayer;
 @property (nonatomic, readwrite) CGFloat segmentWidth;
 @property (nonatomic, readwrite) NSArray *segmentWidthsArray;
-@property (nonatomic, strong) HMScrollView *scrollView;
 
 @end
 
@@ -140,6 +136,8 @@
     self.selectionIndicatorColor = [UIColor colorWithRed:52.0f/255.0f green:181.0f/255.0f blue:229.0f/255.0f alpha:1.0f];
     
     self.selectedSegmentIndex = 0;
+  self.lastSelectedIndex = -1;
+  self.highlightedSelectedIndex = NO;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.selectionIndicatorHeight = 5.0f;
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
@@ -318,12 +316,14 @@
                     i++;
                 }
             }
-            
-            CGRect imageRect = CGRectMake(imageXOffset, yOffset, imageWidth, imageHeight);
-			
+      
+            // TODO:
             // Use the image offset and padding to calculate the text offset
-            CGFloat textXOffset = imageXOffset + imageWidth + segmentImageTextPadding;
-            
+            CGFloat textXOffset = imageXOffset + 5;
+      
+            // image put to left of
+            CGRect imageRect = CGRectMake(textXOffset + [[self.segmentWidthsArray objectAtIndex:idx] floatValue]-imageWidth-segmentImageTextPadding-self.segmentEdgeInset.left-self.segmentEdgeInset.right + segmentImageTextPadding, yOffset, imageWidth, imageHeight);
+
             // The text rect's width is the segment width without the image, image padding and insets
             CGRect textRect = CGRectMake(textXOffset, yOffset, [[self.segmentWidthsArray objectAtIndex:idx] floatValue]-imageWidth-segmentImageTextPadding-self.segmentEdgeInset.left-self.segmentEdgeInset.right, stringHeight);
             CATextLayer *titleLayer = [CATextLayer layer];
@@ -338,19 +338,37 @@
             imageLayer.frame = imageRect;
 			
             if (self.selectedSegmentIndex == idx) {
+              
+              imageLayer.hidden = NO;
+
                 if (self.sectionSelectedImages) {
                     UIImage *highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
+                  
+                  if (self.lastSelectedIndex == self.selectedSegmentIndex) {
+                    if (self.highlightedSelectedIndex) {
+                      self.highlightedSelectedIndex = NO;
+                      highlightIcon = [self.sectionSelectedImages objectAtIndex:idx];
+                    } else {
+                      self.highlightedSelectedIndex = YES;
+                      highlightIcon = [self.sectionImages objectAtIndex:idx];
+                    }
+                  }
+                  
                     imageLayer.contents = (id)highlightIcon.CGImage;
                 } else {
                     imageLayer.contents = (id)icon.CGImage;
                 }
 				titleLayer.foregroundColor = self.selectedTextColor.CGColor;
             } else {
+              
+              imageLayer.hidden = YES;
+
                 imageLayer.contents = (id)icon.CGImage;
 				titleLayer.foregroundColor = self.textColor.CGColor;
             }
-            
+      
             [self.scrollView.layer addSublayer:imageLayer];
+      
 			titleLayer.contentsScale = [[UIScreen mainScreen] scale];
             [self.scrollView.layer addSublayer:titleLayer];
 			
@@ -376,6 +394,8 @@
             }
         }
     }
+  
+  self.lastSelectedIndex = _selectedSegmentIndex;
 }
 
 - (void)setArrowFrame {
@@ -675,7 +695,9 @@
 }
 
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify {
+  
     _selectedSegmentIndex = index;
+  
     [self setNeedsDisplay];
     
     if (index == HMSegmentedControlNoSegment) {

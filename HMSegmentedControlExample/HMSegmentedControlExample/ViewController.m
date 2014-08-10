@@ -8,14 +8,28 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) HMSegmentedControl *segmentedControl4;
 
+@property (nonatomic, strong) HMSegmentedControl *segmentedControl;
+@property (nonatomic, strong) HMSegmentedControl *segmentedControl1;
+
 @end
 
 @implementation ViewController
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  
+  CGPoint offset = _segmentedControl1.scrollView.contentOffset;
+  offset.y = _segmentedControl1.scrollView.contentOffset.y;
+  
+  NSLog(@"\n\n-----%.0f------\n\n", offset.y);
+
+  [_segmentedControl.scrollView setContentOffset:offset];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,31 +45,40 @@
     }
     
     // Minimum code required to use the segmented control with the default styling.
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Trending", @"News", @"Library"]];
-    segmentedControl.frame = CGRectMake(0, 0 + yDelta, 320, 40);
-    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segmentedControl];
+  _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
+  _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+  _segmentedControl.frame = CGRectMake(0, 0 + yDelta, 320, 40);
+  _segmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
+  _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+  _segmentedControl.selectionIndicatorColor = [UIColor clearColor];
+  _segmentedControl.userDraggable = NO;
+  _segmentedControl.touchEnabled = NO;
+  _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    [self.view addSubview:_segmentedControl];
     
     
     // Segmented control with scrolling
-    HMSegmentedControl *segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
-    segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    segmentedControl1.frame = CGRectMake(0, 40 + yDelta, 320, 40);
-    segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    [segmentedControl1 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segmentedControl1];
-    
+    _segmentedControl1 = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", @"Eight"]];
+    _segmentedControl1.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    _segmentedControl1.frame = CGRectMake(0, 40 + yDelta, 320, 40);
+    _segmentedControl1.segmentEdgeInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    _segmentedControl1.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    _segmentedControl1.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+  
+  _segmentedControl1.scrollView.delegate = self;
+  
+    [_segmentedControl1 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_segmentedControl1];
     
     // Segmented control with images
-    HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"3"], [UIImage imageNamed:@"4"]] sectionSelectedImages:@[[UIImage imageNamed:@"1-selected"], [UIImage imageNamed:@"2-selected"], [UIImage imageNamed:@"3-selected"], [UIImage imageNamed:@"4-selected"]]];
+  HMSegmentedControl *segmentedControl2 = [[HMSegmentedControl alloc] initWithSectionImages:@[[UIImage imageNamed:@"triangle_highlighted"], [UIImage imageNamed:@"triangle_highlighted"], [UIImage imageNamed:@"triangle_highlighted"], [UIImage imageNamed:@"triangle_highlighted"]] sectionSelectedImages:@[[UIImage imageNamed:@"triangle_normal"], [UIImage imageNamed:@"triangle_normal"], [UIImage imageNamed:@"triangle_normal"], [UIImage imageNamed:@"triangle_normal"]] titlesForSections:@[@"One", @"Two", @"Three", @"Four"]];
+  
     segmentedControl2.frame = CGRectMake(0, 100 + yDelta, 320, 50);
     segmentedControl2.selectionIndicatorHeight = 4.0f;
     segmentedControl2.backgroundColor = [UIColor clearColor];
     segmentedControl2.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    segmentedControl2.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
+    segmentedControl2.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    segmentedControl2.allowTapSelectedIndex = YES;
     [segmentedControl2 addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segmentedControl2];
 

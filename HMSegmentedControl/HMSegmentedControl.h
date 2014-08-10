@@ -38,6 +38,9 @@ typedef enum {
 	HMSegmentedControlTypeTextImages
 } HMSegmentedControlType;
 
+@interface HMScrollView : UIScrollView
+@end
+
 @interface HMSegmentedControl : UIControl
 
 @property (nonatomic, strong) NSArray *sectionTitles;
@@ -170,6 +173,11 @@ typedef enum {
  Default is NO. Set to YES to allow notify index change for tapping selected index
 */
 @property (nonatomic) BOOL allowTapSelectedIndex;
+
+@property (nonatomic) NSInteger lastSelectedIndex;
+@property (nonatomic) BOOL highlightedSelectedIndex;
+
+@property (nonatomic, strong) HMScrollView *scrollView;
 
 - (id)initWithSectionTitles:(NSArray *)sectiontitles;
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
