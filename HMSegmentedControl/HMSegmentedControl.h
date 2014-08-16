@@ -174,6 +174,8 @@ typedef enum {
 */
 @property (nonatomic) BOOL allowTapSelectedIndex;
 
+@property (nonatomic) BOOL zoomAniSelectedText;
+
 @property (nonatomic) NSInteger lastSelectedIndex;
 @property (nonatomic) BOOL highlightedSelectedIndex;
 

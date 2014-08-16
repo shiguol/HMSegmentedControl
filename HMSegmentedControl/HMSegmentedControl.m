@@ -261,6 +261,16 @@
             
             if (self.selectedSegmentIndex == idx) {
                 titleLayer.foregroundColor = self.selectedTextColor.CGColor;
+              
+              if (_zoomAniSelectedText) {
+                // Animate to new position
+                CABasicAnimation *scaleAnim = [CABasicAnimation animationWithKeyPath:@"transform"];
+                scaleAnim.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+                scaleAnim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.25, 1.25, 1.0)];
+                scaleAnim.autoreverses = YES;
+                scaleAnim.removedOnCompletion = YES;
+                [titleLayer addAnimation:scaleAnim forKey:@"scaleAnim"];
+              }
             } else {
                 titleLayer.foregroundColor = self.textColor.CGColor;
             }
