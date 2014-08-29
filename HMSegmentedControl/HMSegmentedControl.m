@@ -146,7 +146,7 @@
   self.userDraggable = YES;
   self.touchEnabled = YES;
   self.type = HMSegmentedControlTypeText;
-  
+
   self.shouldAnimateUserSelection = YES;
   
   self.selectionIndicatorArrowLayer = [CALayer layer];
@@ -158,6 +158,8 @@
   self.selectionIndicatorBoxLayer = [CALayer layer];
   self.selectionIndicatorBoxLayer.opacity = self.selectionIndicatorBoxOpacity;
   self.selectionIndicatorBoxLayer.borderWidth = 1.0f;
+  
+  self.fixedSegmentWidth = 0;
   
   self.contentMode = UIViewContentModeRedraw;
 }
@@ -588,6 +590,10 @@
       i++;
     }
     self.segmentWidthsArray = [mutableSegmentWidths copy];
+  }
+  
+  if (self.fixedSegmentWidth > 0) {
+    self.segmentWidth = self.fixedSegmentWidth;
   }
   
   self.scrollView.scrollEnabled = self.isUserDraggable;

@@ -176,6 +176,8 @@ typedef enum {
 
 @property (nonatomic) BOOL zoomAniSelectedText;
 
+@property (nonatomic, readwrite) CGFloat fixedSegmentWidth;
+
 @property (nonatomic) NSInteger lastSelectedIndex;
 @property (nonatomic) BOOL highlightedSelectedIndex;
 
